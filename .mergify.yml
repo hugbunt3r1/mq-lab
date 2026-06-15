@@ -1,0 +1,15 @@
+queue_rules:
+  - name: default
+    merge_conditions: []
+    merge_method: merge
+pull_request_rules:
+  - name: auto-queue on label
+    conditions:
+      - label = ready-to-merge
+    actions:
+      queue:
+        name: default
+commands_restrictions:
+  rebase:
+    conditions:
+      - sender-permission >= write
