@@ -1,0 +1,10 @@
+name: ci
+on:
+  push:
+    branches: ["mergify/merge-queue/**", "tmp-mergify/merge-queue/**"]
+  pull_request:
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 1
