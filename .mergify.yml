@@ -1,11 +1,11 @@
 queue_rules:
   - name: default
-    merge_conditions:
-      - check-success=ci/never-runs
-    merge_method: merge
+    merge_conditions: []
+    merge_method: squash
 pull_request_rules:
-  - name: auto-queue on label
-    conditions: [label = ready-to-merge]
+  - name: auto-queue
+    conditions:
+      - label = queue-me
     actions:
       queue:
         name: default
