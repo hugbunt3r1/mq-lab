@@ -1,12 +1,8 @@
-queue_rules:
-  - name: default
-    merge_conditions:
-      - check-success = ci
-    merge_method: squash
 pull_request_rules:
-  - name: auto-queue
+  - name: direct-merge
     conditions:
-      - label = queue-me
+      - label = merge-me
+      - check-success = ci
     actions:
-      queue:
-        name: default
+      merge:
+        method: squash
