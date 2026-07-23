@@ -1,8 +1,11 @@
 queue_rules:
   - name: default
-    merge_conditions: [check-success=ci/never-runs]
-    merge_method: squash
+    merge_conditions:
+      - check-success=ci/never-runs
+    merge_method: merge
 pull_request_rules:
-  - name: queue-entry-gate
+  - name: auto-queue on label
     conditions: [label = ready-to-merge]
-    actions: {queue: {name: default}}
+    actions:
+      queue:
+        name: default
