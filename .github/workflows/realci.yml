@@ -1,0 +1,7 @@
+name: realci
+on: pull_request
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    steps: [{ run: exit 1 }]
