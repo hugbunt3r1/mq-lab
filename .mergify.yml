@@ -1,14 +1,11 @@
 queue_rules:
   - name: default
-    merge_conditions: [check-success=ci/never-runs]   # never passes -> queued PR does NOT merge
-    merge_method: squash
+    merge_conditions:
+      - check-success=ci/never-runs
+    merge_method: merge
 pull_request_rules:
-  - name: queue-entry-gate
-    conditions: [label = ready-to-merge]               # operator's Mergify-owned queue-entry gate
-    actions: {queue: {name: default}}
-  - name: echo-title                                    # documented templating + bot_account
-    conditions: [-closed, -head~=^mergify/]             # (exclude Mergify's own branches: anti-loop)
+  - name: auto-queue on label
+    conditions: [label = ready-to-merge]
     actions:
-      comment:
-        message: "{{ title }}"
-        bot_account: hugbunt3r1
+      queue:
+        name: default
