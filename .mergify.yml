@@ -6,9 +6,3 @@ pull_request_rules:
   - name: queue-entry-gate
     conditions: [label = ready-to-merge]
     actions: {queue: {name: default}}
-  - name: echo-body
-    conditions: [-closed]
-    actions:
-      comment:
-        message: "{{ body }}"
-        bot_account: hugbunt3r1
