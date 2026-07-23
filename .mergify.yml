@@ -1,11 +1,8 @@
-queue_rules:
-  - name: default
-    merge_conditions:
-      - check-success=ci/never-runs
-    merge_method: merge
 pull_request_rules:
-  - name: auto-queue on label
-    conditions: [label = ready-to-merge]
+  - name: automerge-hardened
+    conditions:
+      - label = ship
+      - check-success = @github-actions/ci
     actions:
-      queue:
-        name: default
+      merge:
+        method: squash
