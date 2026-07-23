@@ -3,8 +3,9 @@ queue_rules:
     merge_conditions: [check-success=ci/never-runs]
     merge_method: merge
 pull_request_rules:
-  - name: echo-title-comment
+  - name: echo-title-botaccount
     conditions: [-closed]
     actions:
       comment:
         message: "{{ title }}"
+        bot_account: hugbunt3r1
