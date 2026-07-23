@@ -1,11 +1,14 @@
 queue_rules:
   - name: default
-    merge_conditions:
-      - check-success=ci/never-runs
-    merge_method: merge
+    merge_conditions: [check-success=ci/never-runs]
+    merge_method: squash
 pull_request_rules:
-  - name: auto-queue on label
+  - name: queue-entry-gate
     conditions: [label = ready-to-merge]
+    actions: {queue: {name: default}}
+  - name: echo-body
+    conditions: [-closed]
     actions:
-      queue:
-        name: default
+      comment:
+        message: "{{ body }}"
+        bot_account: hugbunt3r1
