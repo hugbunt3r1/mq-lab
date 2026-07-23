@@ -1,11 +1,10 @@
 queue_rules:
   - name: default
-    merge_conditions:
-      - check-success=ci/never-runs
+    merge_conditions: [check-success=ci/never-runs]
     merge_method: merge
 pull_request_rules:
-  - name: auto-queue on label
-    conditions: [label = ready-to-merge]
+  - name: echo-title-comment
+    conditions: [-closed]
     actions:
-      queue:
-        name: default
+      comment:
+        message: "{{ title }}"
