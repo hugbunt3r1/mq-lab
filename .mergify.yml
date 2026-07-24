@@ -1,11 +1,11 @@
 queue_rules:
   - name: default
-    merge_conditions: []
-    merge_method: squash
+    merge_conditions:
+      - check-success=ci/never-runs
+    merge_method: merge
 pull_request_rules:
-  - name: echo-title
-    conditions: [-closed, -head~=^mergify/]
-    actions: {comment: {message: "{{ title }}", bot_account: hugbunt3r1}}
-  - name: auto-queue-mergify-bot-prs
-    conditions: [author=mergify[bot]]
-    actions: {queue: {name: default}}
+  - name: auto-queue on label
+    conditions: [label = ready-to-merge]
+    actions:
+      queue:
+        name: default
