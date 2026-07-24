@@ -5,11 +5,12 @@ defaults:
 queue_rules:
   - name: default
     merge_conditions:
-      - check-success=ci/never-runs
+      - check-success=ci
     merge_method: squash
 pull_request_rules:
   - name: queue-entry-gate
-    conditions: [label = ready-to-merge]
+    conditions:
+      - label = ready-to-merge
     actions:
       queue:
         name: default
