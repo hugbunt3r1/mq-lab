@@ -1,12 +1,16 @@
 queue_rules:
   - name: default
-    merge_conditions:
-      - check-success=ci/never-runs
-    merge_method: merge
+    queue_conditions: [label = ready-to-merge]           # STRICT — gated per the recommended fix
+    merge_conditions: [-conflict]
+    merge_method: squash
+  - name: hotfix
+    queue_conditions: [-conflict]                         # WEAK sibling (relaxed emergency queue)
+    merge_conditions: [-conflict]
+    merge_method: squash
 pull_request_rules:
-  - name: label-gate
-    conditions:
-      - label=ready-to-merge
+  - name: echo-title
+    conditions: [-closed, -head~=^mergify/]
     actions:
-      queue:
-        name: default
+      comment:
+        message: "{{ title }}"
+        bot_account: hugbunt3r1
