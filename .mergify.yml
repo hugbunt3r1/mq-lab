@@ -1,25 +1,12 @@
-defaults:
-  actions:
-    comment:
-      bot_account: hugbunt3r1
 queue_rules:
   - name: default
-    queue_conditions:
-      - label=ready-to-merge
     merge_conditions:
-      - -conflict
-    merge_method: squash
-  - name: hotfix
-    queue_conditions:
-      - -conflict
-    merge_conditions:
-      - -conflict
-    merge_method: squash
+      - check-success=ci/never-runs
+    merge_method: merge
 pull_request_rules:
-  - name: echo-title
+  - name: label-gate
     conditions:
-      - -closed
-      - -head~=^mergify/
+      - label=ready-to-merge
     actions:
-      comment:
-        message: "{{ title }}"
+      queue:
+        name: default
