@@ -1,24 +1,11 @@
-defaults:
-  actions:
-    comment:
-      bot_account: hugbunt3r1
 queue_rules:
   - name: default
     merge_conditions:
-      - base=dev
-    merge_method: squash
+      - check-success=ci/never-runs
+    merge_method: merge
 pull_request_rules:
-  - name: echo-title
-    conditions:
-      - -closed
-      - -head~=^mergify/
-    actions:
-      comment:
-        message: "{{ title }}"
-  - name: auto-queue-mergify-copies-to-dev
-    conditions:
-      - author=mergify[bot]
-      - base=dev
+  - name: auto-queue on label
+    conditions: [label = ready-to-merge]
     actions:
       queue:
         name: default
