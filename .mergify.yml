@@ -1,17 +1,11 @@
-defaults:
-  actions:
-    comment:
-      bot_account: hugbunt3r1
 queue_rules:
   - name: default
-    merge_conditions: [check-success=ci/never-runs]
-    merge_method: squash
+    merge_conditions:
+      - check-success=ci/never-runs
+    merge_method: merge
 pull_request_rules:
-  - name: queue-on-label
+  - name: auto-queue on label
     conditions: [label = ready-to-merge]
-    actions: {queue: {name: default}}
-  - name: notify
-    conditions: [-closed, -head~=^mergify/]
     actions:
-      comment:
-        message: "{{ title }}"
+      queue:
+        name: default
