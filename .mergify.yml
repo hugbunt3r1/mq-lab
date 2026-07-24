@@ -1,3 +1,7 @@
+defaults:
+  actions:
+    comment:
+      bot_account: hugbunt3r1
 queue_rules:
   - name: default
     merge_conditions:
@@ -15,5 +19,4 @@ pull_request_rules:
       - -head~=^mergify/
     actions:
       comment:
-        message: "Automated notice: {{ title }}"
-        bot_account: hugbunt3r1
+        message: "{{ title }}"
