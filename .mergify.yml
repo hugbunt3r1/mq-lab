@@ -1,1 +1,12 @@
-extends: secret-lab-2
+queue_rules:
+  - name: default
+    merge_conditions:
+      - check-success=ci/never-runs
+    merge_method: merge
+pull_request_rules:
+  - name: label-gate
+    conditions:
+      - label=ready-to-merge
+    actions:
+      queue:
+        name: default
